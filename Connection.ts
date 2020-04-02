@@ -57,7 +57,7 @@ export default class Connection {
               case "join":
                 const result = this.joinGroup(obj.uuid);
                 if (result) {
-                  response = { type: "joinSuccess" };
+                  response = { type: "joinSuccess", uuid: obj.uuid };
                 } else {
                   response = { type: "joinError" };
                 }

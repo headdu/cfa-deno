@@ -23,5 +23,6 @@ export default class Group {
     this.memberCons.forEach((con) => {
       con.send(message)
     })
+    this.adminCon.send(message)
   }
 }
