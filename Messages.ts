@@ -5,6 +5,7 @@ export interface CreateMessage {
     | "joinSuccess"
     | "joinError"
     | "sync"
+    | "ping"
     | "shareConfig";
 }
 

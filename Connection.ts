@@ -3,17 +3,15 @@ import {
   isWebSocketPingEvent,
   isWebSocketCloseEvent
 } from "https://deno.land/std/ws/mod.ts";
-import { v4 } from "https://deno.land/std/uuid/mod.ts";
 import { CreateMessage, JoinMessage } from "./Messages.ts";
 import GroupManager from "./GroupManager.ts";
 
 export default class Connection {
-  public uuid: string;
   private con: WebSocket;
   private myGroup?: string;
+  private isAdmin = false;
 
   constructor(con: WebSocket) {
-    this.uuid = v4.generate();
     this.con = con;
     this.manageMessages();
   }
@@ -44,7 +42,7 @@ export default class Connection {
         const ev = value;
         if (typeof ev === "string") {
           const obj: JoinMessage | CreateMessage = JSON.parse(ev);
-          let response = {};
+          let response = null;
           if (obj.type) {
             switch (obj.type) {
               case "create":
@@ -53,21 +51,27 @@ export default class Connection {
                   type: "createSuccess",
                   uuid: this.myGroup
                 };
+                this.isAdmin = true
                 break;
               case "join":
                 const result = this.joinGroup(obj.uuid);
                 if (result) {
                   response = { type: "joinSuccess", uuid: obj.uuid };
+                  this.myGroup = obj.uuid
                 } else {
                   response = { type: "joinError" };
                 }
                 break;
+              case "ping":
+                break
               default:
                 this.broadcast(ev);
                 break;
             }
           }
-          await this.con.send(JSON.stringify(response))
+          if (response) {
+            await this.con.send(JSON.stringify(response));
+          }
         } else if (isWebSocketPingEvent(ev)) {
           const [, body] = ev;
           // ping
@@ -75,7 +79,11 @@ export default class Connection {
         } else if (isWebSocketCloseEvent(ev)) {
           // close
           const { code, reason } = ev;
-          console.log("ws:Close", code, reason);
+          if (this.isAdmin && this.myGroup) {
+            GroupManager.closeGroup(this.myGroup);
+          } else if (this.myGroup) {
+            GroupManager.leaveGroup(this.myGroup, this.con);
+          }
         }
       } catch (e) {
         console.error(`failed to receive frame: ${e}`);

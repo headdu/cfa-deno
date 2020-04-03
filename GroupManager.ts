@@ -24,6 +24,15 @@ class GroupManager {
       this.groupMap.get(groupUuid)?.broadcast(message);
     }
   }
+
+  public closeGroup(uuid: string) {
+    this.groupMap.get(uuid)?.close()
+  }
+
+  
+  public leaveGroup(uuid: string, conn: WebSocket) {
+    this.groupMap.get(uuid)?.leave(conn)
+  }
 }
 
 export default new GroupManager
