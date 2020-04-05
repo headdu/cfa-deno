@@ -25,7 +25,7 @@ export default class Connection {
   }
 
   private broadcast(message: string) {
-    if (this.myGroup) {
+    if (this.myGroup && this.isAdmin) {
       GroupManager.broadcast(this.myGroup, message);
     }
   }

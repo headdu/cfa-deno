@@ -6,12 +6,15 @@ export interface CreateMessage {
     | "joinError"
     | "sync"
     | "ping"
-    | "shareConfig";
+    | "shareConfig"
+    | "addMember"
+    | "leaveMember"
 }
 
 export interface JoinMessage {
   type: 'join';
   uuid: string;
+  name?: string;
 }
 
 export interface Message {type: string}

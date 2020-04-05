@@ -19,6 +19,12 @@ export default class Group {
 
   public addMember(conn: WebSocket) {
     this.memberCons = [...this.memberCons, conn]
+    this.broadcast(
+      JSON.stringify({
+        type: "addMember",
+        members: this.memberCons.length + 1,
+      })
+    );
   }
 
   public broadcast(message: string) { 
@@ -41,5 +47,6 @@ export default class Group {
 
   public leave(leavingCon: WebSocket) {
     this.memberCons = this.memberCons.filter(con => con !== leavingCon)
+    this.broadcast(JSON.stringify({type: "leaveMember", members: this.memberCons.length + 1}))
   }
 }
