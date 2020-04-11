@@ -77,8 +77,8 @@ export default class Connection {
           // ping
           console.log("ws:Ping", body);
         } else if (isWebSocketCloseEvent(ev)) {
-          // close
           const { code, reason } = ev;
+          console.log("closing", code, reason);
           if (this.isAdmin && this.myGroup) {
             GroupManager.closeGroup(this.myGroup);
           } else if (this.myGroup) {

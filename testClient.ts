@@ -8,7 +8,7 @@ import { BufReader } from "https://deno.land/std/io/bufio.ts";
 import { TextProtoReader } from "https://deno.land/std/textproto/mod.ts";
 import { blue, green, red, yellow } from "https://deno.land/std/fmt/colors.ts";
 
-const endpoint = Deno.args[0] || "ws://cf-aveiro.herokuapp.com";
+const endpoint = "ws://localhost:8080";
 /** simple websocket cli */
 const sock = await connectWebSocket(endpoint);
 console.log(green("ws connected! (type 'close' to quit)"));
