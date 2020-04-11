@@ -41,5 +41,5 @@ async function start() {
     server.respond(request);
   }
 }
-Deno.env()["TEST"];
+console.log(Deno.env()["TEST"]);
 await start();
