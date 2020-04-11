@@ -30,7 +30,6 @@ async function handleWebsocket(req: ServerRequest) {
 
 async function start() {
   const serverr = serve({
-    hostname: "localhost",
     port: port,
   });
   server.raw = serverr;
