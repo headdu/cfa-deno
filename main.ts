@@ -42,3 +42,5 @@ async function start() {
 }
 console.log(Deno.env()["TEST"]);
 start();
+
+console.log('After start', port)
