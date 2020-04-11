@@ -41,4 +41,4 @@ async function start() {
   }
 }
 console.log(Deno.env()["TEST"]);
-await start();
+start();
