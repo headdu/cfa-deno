@@ -1,10 +1,9 @@
 // https://www.googleapis.com/youtube/v3/search?part=id%2Csnippet&channelId=UCC7jJl8kh7M9OyZdjIXOYYw&maxResults=20&order=date&publishedAfter=2013-12-28T19%3A07%3A52.000Z&type=video&prettyPrint=true&key=[YOUR_API_KEY]
 //
 import ky from "https://unpkg.com/ky/index.js";
-import { config } from "https://deno.land/x/dotenv/dotenv.ts";
 // TODO : OBTAIN FOLLOWING PAGES
 
-const API_KEY = config().YOUTUBE_KEY;
+const API_KEY = Deno.env()["YOUTUBE_KEY"];
 // UCtcQ6TPwXAYgZ1Mcl3M1vng
 export const getPlaylists = async (
   channelId: string
