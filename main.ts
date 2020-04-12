@@ -7,7 +7,7 @@ import routes from "./routes/index.ts";
 const port = Number.parseInt(Deno.args[0]) || 8080;
 
 const conns = [];
-const server = pogo.server({ port });
+const server = pogo.server({ port, hostname: "0.0.0.0" });
 
 server.route(routes);
 
@@ -33,6 +33,7 @@ console.log(Deno.env()["TEST"]);
 console.log("Port provided", port);
 const serverr = serve({
   port: port,
+  hostname: "0.0.0.0"
 });
 server.raw = serverr;
 for await (const request of serverr) {
