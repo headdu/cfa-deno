@@ -30,7 +30,7 @@ async function handleWebsocket(req: ServerRequest) {
 
 console.log(Deno.env()["TEST"]);
 
-console.log("After start", port);
+console.log("Port provided", port);
 const serverr = serve({
   port: port,
 });
