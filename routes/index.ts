@@ -12,6 +12,13 @@ playlistItemsHotCache.updateMap.set("TEST_KEY", new Date().toISOString());
 const routes = [
   {
     method: "GET",
+    path: "/",
+    handler: async (request: any) => {
+      return 'success'
+    },
+  },
+  {
+    method: "GET",
     path: "/playlists",
     handler: async (request: any) => {
       console.log("received a request to get playlists");
