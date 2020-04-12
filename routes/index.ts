@@ -34,8 +34,8 @@ const routes = [
         );
       }
       try {
-        const remoteGetter = () => {
-          getPlaylists(id);
+        const remoteGetter = async () => {
+          return await getPlaylists(id);
         };
         return await playlistsHotCache.getData(id, remoteGetter);
       } catch (err) {
@@ -60,8 +60,8 @@ const routes = [
         );
       }
       try {
-        const remoteGetter = () => {
-          getPlaylistItems(id);
+        const remoteGetter = async () => {
+          return await getPlaylistItems(id);
         };
         return await playlistItemsHotCache.getData(id, remoteGetter);
       } catch (err) {

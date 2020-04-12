@@ -4,6 +4,7 @@ import ky from "https://unpkg.com/ky/index.js";
 // TODO : OBTAIN FOLLOWING PAGES
 
 const API_KEY = Deno.env()["YOUTUBE_KEY"];
+
 // UCtcQ6TPwXAYgZ1Mcl3M1vng
 export const getPlaylists = async (
   channelId: string
@@ -13,16 +14,17 @@ export const getPlaylists = async (
   try {
     parsed = await ky
       .get(
-        `https://www.googleapis.com/youtube/v3/playlists?part=id%2Csnippet&&maxResults=50&channelId=${channelId}&prettyPrint=true&key=${API_KEY}`
+        `https://www.googleapis.com/youtube/v3/playlists?part=id%2Csnippet&channelId=${channelId}&maxResults=50&prettyPrint=true&key=${API_KEY}`,
       )
       .json();
     console.log("Information retrieved successfully");
     console.log(parsed);
+    return parsed;
   } catch (err) {
     console.log("Error obtaining playlists");
     console.log(err);
+    throw err
   }
-  return parsed
 };
 
 // PLdWvFCOAvyr1pbzi-RRSeBM5AJidmg2u4
@@ -37,11 +39,12 @@ export const getPlaylistItems = async (
     );
     console.log("Playlist items retrieved successfully");
     console.log(parsed);
+    return parsed
   } catch (err) {
     console.log("Error obtaining playlist items");
     console.log(err);
+    throw err
   }
-  return parsed;
 };
 
 export interface PageInfo {
