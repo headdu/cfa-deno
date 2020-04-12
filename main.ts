@@ -6,11 +6,6 @@ import routes from "./routes/index.ts";
 
 const port = Number.parseInt(Deno.args[0]) || 8080;
 
-const conns = [];
-const server = pogo.server({ port, hostname: "0.0.0.0" });
-
-server.route(routes);
-
 async function handleWebsocket(req: ServerRequest) {
   const { headers, conn } = req;
   console.log("socket request received");
@@ -22,7 +17,7 @@ async function handleWebsocket(req: ServerRequest) {
       bufWriter: req.w,
     });
     console.log("socket connected!");
-    conns.push(new Connection(websocket));
+    new Connection(websocket);
   } catch (err) {
     console.error(`failed to accept websocket: ${err}`);
   }
@@ -33,12 +28,22 @@ console.log(Deno.env()["TEST"]);
 console.log("Port provided", port);
 const serverr = serve({
   port: port,
-  hostname: "0.0.0.0"
+  hostname: "0.0.0.0",
 });
+
+const conns = [];
+const server = pogo.server({ port, hostname: "0.0.0.0" })
+
+server.route(routes);
 server.raw = serverr;
-for await (const request of serverr) {
-  if (acceptable(request)) {
-    await handleWebsocket(request);
+async function start() {
+  for await (const request of serverr) {
+    if (acceptable(request)) {
+      await handleWebsocket(request);
+    } else {
+      server.respond(request);
+    }
   }
-  server.respond(request);
 }
+
+start();
