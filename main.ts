@@ -28,19 +28,16 @@ async function handleWebsocket(req: ServerRequest) {
   }
 }
 
-async function start() {
-  const serverr = serve({
-    port: port,
-  });
-  server.raw = serverr;
-  for await (const request of serverr) {
-    if (acceptable(request)) {
-      await handleWebsocket(request);
-    }
-    server.respond(request);
-  }
-}
 console.log(Deno.env()["TEST"]);
-start();
 
-console.log('After start', port)
+console.log("After start", port);
+const serverr = serve({
+  port: port,
+});
+server.raw = serverr;
+for await (const request of serverr) {
+  if (acceptable(request)) {
+    await handleWebsocket(request);
+  }
+  server.respond(request);
+}
