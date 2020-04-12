@@ -46,8 +46,8 @@ const routes = [
   {
     method: "GET",
     path: "/playlistItems",
-    handler: async (request: any) => async (request: any) => {
-      console.log("received a request to get playlists");
+    handler: async (request: any) => {
+      console.log("Received a request to get playlist items");
       const id = request.searchParams.get("id");
       console.log("ID is " + id);
       if (!id) {

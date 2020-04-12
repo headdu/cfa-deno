@@ -14,7 +14,7 @@ export const getPlaylists = async (
   try {
     parsed = await ky
       .get(
-        `https://www.googleapis.com/youtube/v3/playlists?part=id%2Csnippet&channelId=${channelId}&maxResults=50&prettyPrint=true&key=${API_KEY}`,
+        `https://www.googleapis.com/youtube/v3/playlists?part=id%2Csnippet&channelId=${channelId}&maxResults=50&prettyPrint=true&key=${API_KEY}`
       )
       .json();
     console.log("Information retrieved successfully");
@@ -23,7 +23,7 @@ export const getPlaylists = async (
   } catch (err) {
     console.log("Error obtaining playlists");
     console.log(err);
-    throw err
+    throw err;
   }
 };
 
@@ -34,16 +34,18 @@ export const getPlaylistItems = async (
   console.log("Requesting playlist items for " + playlistId);
   let parsed;
   try {
-    parsed = await ky.get(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&prettyPrint=true&key=${API_KEY}`
-    );
+    parsed = await ky
+      .get(
+        `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${playlistId}&maxResults=50&prettyPrint=true&key=${API_KEY}`
+      )
+      .json();
     console.log("Playlist items retrieved successfully");
     console.log(parsed);
-    return parsed
+    return parsed;
   } catch (err) {
     console.log("Error obtaining playlist items");
     console.log(err);
-    throw err
+    throw err;
   }
 };
 
