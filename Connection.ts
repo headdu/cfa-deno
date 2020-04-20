@@ -63,6 +63,7 @@ export default class Connection {
                 }
                 break;
               case "ping":
+                response = {type: "pong"}
                 break
               default:
                 this.broadcast(ev);
