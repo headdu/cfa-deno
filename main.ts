@@ -3,12 +3,16 @@ import pogo from "https://deno.land/x/pogo/main.js";
 import { acceptWebSocket, acceptable } from "https://deno.land/std/ws/mod.ts";
 import Connection from "./Connection.ts";
 import routes from "./routes/index.ts";
+import { v4 } from "https://deno.land/std/uuid/mod.ts";
 
 const port = Number.parseInt(Deno.args[0]) || 8080;
-
+const conns : {[key: string]: Connection} = {};
 async function handleWebsocket(req: ServerRequest) {
-  const { headers, conn } = req;
-  console.log("socket request received");
+  const { headers, conn, url } = req;
+  var baseURL = "http://" + headers.get('host') + "/";
+  const reqURL = new URL(url, baseURL)
+  const reqUuid = reqURL.searchParams.get('uuid')
+
   try {
     const websocket = await acceptWebSocket({
       conn,
@@ -16,8 +20,17 @@ async function handleWebsocket(req: ServerRequest) {
       bufReader: req.r,
       bufWriter: req.w,
     });
-    console.log("socket connected!");
-    new Connection(websocket);
+
+    if (reqUuid && conns[reqUuid]) {
+      console.log('Connection exists', reqUuid)
+      conns[reqUuid].setCon(websocket)
+    } else {
+      console.log("New Connection");
+      const newUuid = v4.generate()
+      console.log("socket connected!");
+      conns[newUuid] = new Connection(newUuid);
+      conns[newUuid].setCon(websocket);
+    }
   } catch (err) {
     console.error(`failed to accept websocket: ${err}`);
   }
@@ -31,7 +44,6 @@ const serverr = serve({
   hostname: "0.0.0.0",
 });
 
-const conns = [];
 const server = pogo.server({ port, hostname: "0.0.0.0" })
 
 server.route(routes);

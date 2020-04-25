@@ -8,16 +8,30 @@ export interface CreateMessage {
     | "ping"
     | "shareConfig"
     | "addMember"
-    | "leaveMember"
+    | "leaveMember";
+  name?: string;
+}
+
+export interface ScoreMessage {
+  type: "updateLeaderboard";
+  score: number;
 }
 
 export interface JoinMessage {
-  type: 'join';
+  type: "join";
   uuid: string;
   name?: string;
 }
 
-export interface Message {type: string}
+export interface ResyncMessage {
+  type: "resyncAfterAdminReconnect";
+  config: any;
+  currentRound: number;
+}
+
+export interface Message {
+  type: string;
+}
 
 /*
   {"type":"create"}
