@@ -1,9 +1,16 @@
-import { serve, ServerRequest } from "https://deno.land/std/http/server.ts";
+import {
+  serve,
+  ServerRequest,
+} from "https://deno.land/std@v0.41.0/http/server.ts";
 import pogo from "https://deno.land/x/pogo/main.ts";
-import { acceptWebSocket, acceptable } from "https://deno.land/std/ws/mod.ts";
+import {
+  acceptWebSocket,
+  acceptable,
+} from "https://deno.land/std@v0.41.0/ws/mod.ts";
 import Connection from "./Connection.ts";
 import routes from "./routes/index.ts";
 import { v4 } from "https://deno.land/std/uuid/mod.ts";
+import { bodyReader } from "https://deno.land/std/http/io.ts";
 
 const port = Number.parseInt(Deno.args[0]) || 8080;
 const conns : {[key: string]: Connection} = {};
@@ -44,7 +51,7 @@ const serverr = serve({
   hostname: "0.0.0.0",
 });
 
-const server: any = pogo.server({ port, hostname: "0.0.0.0" })
+const server = pogo.server({ port, hostname: "0.0.0.0" })
 
 server.route(routes);
 server.raw = serverr;
