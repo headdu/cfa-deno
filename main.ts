@@ -1,5 +1,5 @@
 import { serve, ServerRequest } from "https://deno.land/std/http/server.ts";
-import pogo from "https://deno.land/x/pogo/main.js";
+import pogo from "https://deno.land/x/pogo/main.ts";
 import { acceptWebSocket, acceptable } from "https://deno.land/std/ws/mod.ts";
 import Connection from "./Connection.ts";
 import routes from "./routes/index.ts";
@@ -44,7 +44,7 @@ const serverr = serve({
   hostname: "0.0.0.0",
 });
 
-const server = pogo.server({ port, hostname: "0.0.0.0" })
+const server: any = pogo.server({ port, hostname: "0.0.0.0" })
 
 server.route(routes);
 server.raw = serverr;
