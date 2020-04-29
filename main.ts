@@ -9,8 +9,7 @@ import {
 } from "https://deno.land/std@v0.41.0/ws/mod.ts";
 import Connection from "./Connection.ts";
 import routes from "./routes/index.ts";
-import { v4 } from "https://deno.land/std/uuid/mod.ts";
-import { bodyReader } from "https://deno.land/std/http/io.ts";
+import { v4 } from "https://deno.land/std@v0.41.0/uuid/mod.ts";
 
 const port = Number.parseInt(Deno.args[0]) || 8080;
 const conns : {[key: string]: Connection} = {};

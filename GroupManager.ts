@@ -1,5 +1,5 @@
 import Group from "./Group.ts";
-import { WebSocket } from "https://deno.land/std/ws/mod.ts";
+import { WebSocket } from "https://deno.land/std@v0.41.0/ws/mod.ts";
 class GroupManager {
   private groupMap = new Map<string, Group>();
 

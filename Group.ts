@@ -1,6 +1,4 @@
-import { WebSocket } from "https://deno.land/std/ws/mod.ts";
-import { v4 } from "https://deno.land/std/uuid/mod.ts";
-import { parse } from "https://deno.land/std/path/win32.ts";
+import { WebSocket } from "https://deno.land/std@v0.41.0/ws/mod.ts";
 import Timer from "./lib/Timer.ts";
 let counter = 1;
 export default class Group {
