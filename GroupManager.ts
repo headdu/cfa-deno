@@ -63,6 +63,10 @@ class GroupManager {
   public updateLeaderboard(groupUuid: string, uuid: string, name: string, score: number) {
     this.groupMap.get(groupUuid)?.updateLeaderboard(uuid, name, score)
   }
+
+  public clearGroupLeaderboard(groupUuid: string) {
+    this.groupMap.get(groupUuid)?.clearLeaderboard();
+  }
 }
 
 export default new GroupManager

@@ -8,6 +8,7 @@ export interface CreateMessage {
     | "ping"
     | "shareConfig"
     | "addMember"
+    | "clearLeaderboard"
     | "leaveMember";
   name?: string;
 }

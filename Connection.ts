@@ -150,6 +150,7 @@ export default class Connection {
                       obj.currentRound
                     );
                   }
+                  break;
                 case "updateLeaderboard":
                   if (this.myGroup) {
                     GroupManager.updateLeaderboard(
@@ -159,6 +160,13 @@ export default class Connection {
                       (obj as ScoreMessage).score
                     )
                   }
+                  break;
+                case "clearLeaderboard": {
+                  if (this.myGroup) {
+                    GroupManager.clearGroupLeaderboard(this.myGroup)
+                  }
+                  break;
+                }
                 default:
                   this.broadcast(ev);
                   break;
