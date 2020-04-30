@@ -56,6 +56,9 @@ export default class Group {
   public async close() {
     const message = JSON.stringify({ type: "closeGroup" });
     await this.memberCons.forEach(async (con) => {
+      if (con.isClosed) {
+        return
+      }
       await con.send(message);
     });
     this.memberCons = [];

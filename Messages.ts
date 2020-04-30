@@ -9,6 +9,7 @@ export interface CreateMessage {
     | "shareConfig"
     | "addMember"
     | "clearLeaderboard"
+    | "closeGroup"
     | "leaveMember";
   name?: string;
 }

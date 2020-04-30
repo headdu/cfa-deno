@@ -43,6 +43,12 @@ export default class Connection {
         }
       } else {
         this.joinGroup(this.myGroup);
+        this.con.send(
+          JSON.stringify({
+            type: "joinSuccess",
+            uuid: this.myGroup,
+          })
+        );
       }
     }
   }
@@ -166,6 +172,11 @@ export default class Connection {
                     GroupManager.clearGroupLeaderboard(this.myGroup)
                   }
                   break;
+                }
+                case "closeGroup": {
+                  if (this.myGroup) {
+                    GroupManager.closeGroup(this.myGroup)
+                  }
                 }
                 default:
                   this.broadcast(ev);
