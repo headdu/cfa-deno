@@ -42,13 +42,14 @@ export default class Connection {
           );
         }
       } else {
-        this.joinGroup(this.myGroup);
-        this.con.send(
-          JSON.stringify({
-            type: "joinSuccess",
-            uuid: this.myGroup,
-          })
-        );
+        if (this.joinGroup(this.myGroup)){
+          this.con.send(
+            JSON.stringify({
+              type: "joinSuccess",
+              uuid: this.myGroup,
+            })
+          );
+        };
       }
     }
   }
