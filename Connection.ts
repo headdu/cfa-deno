@@ -177,6 +177,13 @@ export default class Connection {
                 case "closeGroup": {
                   if (this.myGroup) {
                     GroupManager.closeGroup(this.myGroup)
+                    this.myGroup = undefined;
+                  }
+                }
+                case "userLeaveGroup": {
+                  if (this.myGroup) {
+                    GroupManager.leaveGroup(this.myGroup)
+                    this.myGroup = undefined;
                   }
                 }
                 default:
