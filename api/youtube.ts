@@ -1,6 +1,6 @@
 // https://www.googleapis.com/youtube/v3/search?part=id%2Csnippet&channelId=UCC7jJl8kh7M9OyZdjIXOYYw&maxResults=20&order=date&publishedAfter=2013-12-28T19%3A07%3A52.000Z&type=video&prettyPrint=true&key=[YOUR_API_KEY]
 //
-import ky from "https://unpkg.com/ky/index.js";
+import { ky } from "../deps.ts";
 // TODO : OBTAIN FOLLOWING PAGES
 
 const API_KEY = Deno.env()["YOUTUBE_KEY"];

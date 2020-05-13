@@ -1,15 +1,14 @@
 import {
   serve,
   ServerRequest,
-} from "https://deno.land/std@v0.41.0/http/server.ts";
-import pogo from "https://deno.land/x/pogo/main.ts";
-import {
   acceptWebSocket,
   acceptable,
-} from "https://deno.land/std@v0.41.0/ws/mod.ts";
+  pogo,
+  v4
+} from "./deps.ts";
 import Connection from "./Connection.ts";
 import routes from "./routes/index.ts";
-import { v4 } from "https://deno.land/std@v0.41.0/uuid/mod.ts";
+
 
 const port = Number.parseInt(Deno.args[0]) || 8080;
 const conns : {[key: string]: Connection} = {};

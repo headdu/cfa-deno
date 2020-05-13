@@ -2,7 +2,7 @@ import {
   WebSocket,
   isWebSocketPingEvent,
   isWebSocketCloseEvent,
-} from "https://deno.land/std@v0.41.0/ws/mod.ts";
+} from "./deps.ts";
 import { CreateMessage, JoinMessage, ResyncMessage, ScoreMessage } from "./Messages.ts";
 import GroupManager from "./GroupManager.ts";
 
@@ -179,12 +179,14 @@ export default class Connection {
                     GroupManager.closeGroup(this.myGroup)
                     this.myGroup = undefined;
                   }
+                  break;
                 }
                 case "userLeaveGroup": {
                   if (this.myGroup) {
-                    GroupManager.leaveGroup(this.myGroup)
+                    GroupManager.leaveGroup(this.myGroup, this.con)
                     this.myGroup = undefined;
                   }
+                  break;
                 }
                 default:
                   this.broadcast(ev);

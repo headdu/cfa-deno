@@ -10,7 +10,8 @@ export interface CreateMessage {
     | "addMember"
     | "clearLeaderboard"
     | "closeGroup"
-    | "leaveMember";
+    | "leaveMember"
+    | "userLeaveGroup";
   name?: string;
 }
 
